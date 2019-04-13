@@ -1,0 +1,3 @@
+[submodule "ListToggle"]
+	path = ListToggle
+	url = /root/workspace/myvimconfig/.vim/plugged/ListToggle/

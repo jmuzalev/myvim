@@ -43,11 +43,11 @@ let g:cscope_preload_path="/usr/include/cscope.out;/usr/local/include/cscope.out
 set cscopeverbose 
 set cscopequickfix=s-,c-,d-,i-,t-,e-
 
-function! Addlibcscope()
-	cs add /usr/include/cscope.out<CR>
-	cs add /usr/local/include/cscope.out<CR>
-endfunction
-nmap <F3>  :cs add /usr/include/cscope.out <CR> :cs add /usr/local/include/cscope.out <CR>
+"function! Addlibcscope()
+"	cs add /usr/include/cscope.out<CR>
+"	cs add /usr/local/include/cscope.out<CR>
+"endfunction
+"nmap <F5>  :cs add /usr/include/cscope.out <CR> :cs add /usr/local/include/cscope.out <CR>
 
 
 "Below is the minimum key mappings.
@@ -159,7 +159,10 @@ let &path.="src/include,/usr/include/AL,"
 
 set makeprg=make
 nnoremap <F4> :make!<cr>
-map <f9> :!ctags -R --exclude=.git .<cr>
+map <f9> :!~/.vim/scripts/ctags_with_dep.sh %:p:h/*.[ch] <cr><cr> :cs add %:p:h/cscope.out <CR> 
+map <F3> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+
+
 
 set nu
 set autoindent 
