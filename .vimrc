@@ -22,6 +22,7 @@ Plug 'gnattishness/cscope_maps'
     let g:deoplete#sources#clang#libclang_path = '/usr/lib/'
     let g:deoplete#sources#clang#std#c = 'gcc'
     let g:deoplete#sources#clang#clang_header = '/usr/include/'
+Plug 'xaizek/vim-inccomplete'
 
       Plug 'sirver/ultisnips'
 "    let g:UltiSnipsJumpForwardTrigger="<c-j>"
@@ -29,7 +30,7 @@ Plug 'gnattishness/cscope_maps'
 "    let g:UltiSnipsEditSplit="vertical"
 "	let g:UltiSnipsListSnippets="<c-e>"
      Plug 'honza/vim-snippets'
-
+Plug 'mh21/errormarker.vim'
 "
 "Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
@@ -40,8 +41,11 @@ Plug 'gnattishness/cscope_maps'
 call plug#end()
 
 let g:cscope_preload_path="/usr/include/cscope.out;/usr/local/include/cscope.out;/root/workspace/Cproj/cscope.out"
-set cscopeverbose 
+"set cscopeverbose 
 set cscopequickfix=s-,c-,d-,i-,t-,e-
+
+let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat
+
 
 "function! Addlibcscope()
 "	cs add /usr/include/cscope.out<CR>
@@ -51,37 +55,12 @@ set cscopequickfix=s-,c-,d-,i-,t-,e-
 
 
 "Below is the minimum key mappings.
-
+set splitright
     nnoremap <leader>fa :call cscope#findInteractive(expand('<cword>'))<CR>
     nnoremap <leader>l :call ToggleLocationList()<CR>
 
 "Some optional key mappings to search directly.
-	nmap <C-Space><C-Space>s
-		\:vert scs find s <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space><C-Space>g
-		\:vert scs find g <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space><C-Space>c
-		\:vert scs find c <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space><C-Space>t
-		\:vert scs find t <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space><C-Space>e
-		\:vert scs find e <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space><C-Space>i
-		\:vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-	nmap <C-Space><C-Space>d
-		\:vert scs find d <C-R>=expand("<cword>")<CR><CR>    
-
-
-
-	nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>	
-    nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>	
-    nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>	
-    nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>	
-    nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>	
-    nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>	
-    nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-    nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>	
-    " s: Find this C symbol
+   " s: Find this C symbol
     " g: Find this definition
     " d: Find functions called by this function
     " c: Find functions calling this function
@@ -159,9 +138,8 @@ let &path.="src/include,/usr/include/AL,"
 
 set makeprg=make
 nnoremap <F4> :make!<cr>
-map <f9> :!~/.vim/scripts/ctags_with_dep.sh %:p:h/*.[ch] <cr><cr> :cs add %:p:h/cscope.out <CR> 
+map <f9> :!~/.vim/scripts/ctags_with_dep.sh %:p:h/*.[ch] <cr><cr> :set tags=./tags,tags<cr>  :!~/.vim/scripts/cscope_find.sh <CR> :cs add cscope.out <CR> 
 map <F3> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-
 
 
 set nu
@@ -184,7 +162,6 @@ set foldopen=all
 imap [ []<LEFT>
 imap ( ()<LEFT>
 imap { {}<LEFT>
-
 
 set exrc
 set secure

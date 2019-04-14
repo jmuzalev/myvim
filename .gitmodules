@@ -1,3 +1,12 @@
 [submodule "ListToggle"]
 	path = ListToggle
 	url = /root/workspace/myvimconfig/.vim/plugged/ListToggle/
+[submodule "cscope_maps"]
+	path = cscope_maps
+	url = /root/workspace/myvimconfig/.vim/plugged/cscope_maps/
+[submodule "errormarker.vim"]
+	path = errormarker.vim
+	url = /root/workspace/myvimconfig/.vim/plugged/errormarker.vim/
+[submodule "vim-inccomplete"]
+	path = vim-inccomplete
+	url = /root/workspace/myvimconfig/.vim/plugged/vim-inccomplete/
