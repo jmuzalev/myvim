@@ -1,5 +1,16 @@
 let  g:C_UseTool_cmake    = 'yes'
 let  g:C_UseTool_doxygen = 'yes' 
+set pyx=3
+set pyxversion=3
+set backspace=indent,eol,start
+
+if has('python3') && !has('patch-8.1.201')
+  silent! python3 1
+endif
+
+if &compatible
+  set nocompatible            " be iMproved, required
+endif
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -15,13 +26,14 @@ call plug#begin('~/.vim/plugged')
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Shougo/deoplete.nvim'
+
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'zchee/deoplete-clang'
 Plug 'gnattishness/cscope_maps'
-    let g:deoplete#sources#clang#libclang_path = '/usr/lib/'
     let g:deoplete#sources#clang#std#c = 'gcc'
-    let g:deoplete#sources#clang#clang_header = '/usr/include/'
+	let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-7/lib/libclang.so.1'
+	let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-7/lib/clang/7.0.1/include/'
 Plug 'xaizek/vim-inccomplete'
 
       Plug 'sirver/ultisnips'
@@ -136,10 +148,125 @@ highlight ColorColumn ctermbg=darkgray
 
 let &path.="src/include,/usr/include/AL,"
 
-set makeprg=make
-nnoremap <F4> :make!<cr>
+
+set statusline=%<%f%h%m%r%=char=%b=0x%B\ \ %l,%c%V\ %P
+set laststatus=2
+set highlight+=s:MyStatusLineHighlight
+highlight MyStatusLineHighlight ctermbg=black ctermfg=blue
+
+"set makeprg=make
+"nnoremap <F4> :make!<cr>
+
+"au BufEnter *.cpp set makeprg=g++\ -g\ %\ -o\ %< 
+"au BufEnter *.c set makeprg=gcc\ -g\ %\ -o\ %< 
+"au BufEnter *.py set makeprg=python\ % 
+"au BufEnter *.[rR] set makeprg=Rscript\ %
+"map <F5> :call CompileGcc()<CR>
+"func! CompileGcc()
+"    exec "w" 
+"    silent make
+"endfunc
+"
 map <f9> :!~/.vim/scripts/ctags_with_dep.sh %:p:h/*.[ch] <cr><cr> :set tags=./tags,tags<cr>  :!~/.vim/scripts/cscope_find.sh <CR> :cs add cscope.out <CR> 
 map <F3> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+
+" LaTeX
+function! TEXSET()
+  set makeprg=if\ \[\ -f\ \"Makefile\"\ \];then\ make\ $*;else\ if\ \[\ -f\ \"makefile\"\ \];then\ make\ $*;else\ pdfcslatex\ -file-line-error-style\ %;fi;fi
+  set errorformat=%f:%l:\ %m
+endfunction
+
+" C
+function! CSET()
+  map <F4> :w <CR> :make % <CR><CR>
+  set makeprg=if\ \[\ -f\ \"Makefile\"\ \];then\ make\ $*;else\ if\ \[\ -f\ \"makefile\"\ \];then\ make\ $*;else\ gcc\ -O2\ -g\ -Wall\ -W\ -lm\ -o\ %<\ %;fi;fi
+"  set errorformat=%f:%l:\ %m
+
+  set cindent
+  set tw=0
+  set nowrap
+endfunction
+
+" C++
+function! CPPSET()
+  map <F4> :!g++ -O2 -Wall % && ./a.out
+  set makeprg=if\ \[\ -f\ \"Makefile\"\ \];then\ make\ $*;else\ if\ \[\ -f\ \"makefile\"\ \];then\ make\ $*;else\ g++\ -O2\ -g\ -Wall\ -W\ -o%.bin\ %;fi;fi
+  set cindent
+  set tw=0
+  set nowrap
+endfunction
+
+" Java
+function! JAVASET()
+  set makeprg=if\ \[\ -f\ \"Makefile\"\ \];then\ make\ $*;else\ if\ \[\ -f\ \"makefile\"\ \];then\ make\ $*;else\ javac\ -g\ %;fi;fi
+  set errorformat=%f:%l:\ %m
+  set cindent
+  set tw=0
+  set nowrap
+endfunction
+
+" Pascal
+function! PPSET()
+  set makeprg=if\ \[\ -f\ \"Makefile\"\ \];then\ make\ $*;else\ if\ \[\ -f\ \"makefile\"\ \];then\ make\ $*;else\ fpc\ -g\ -O2\ -o\%.bin\ %;fi;fi
+  set errorformat=%f:%l:\ %m
+  set tw=0
+  set nowrap
+endfunction
+
+" vim scripts
+function! VIMSET()
+  set tw=0
+  set nowrap
+  set comments+=b:\"
+endfunction
+
+" Makefile
+function! MAKEFILESET()
+  set tw=0
+  set nowrap
+  " in a Makefile we need to use <Tab> to actually produce tabs
+  set noet
+  set sts=8
+  iunmap <Tab>
+endfunction
+
+" HTML/PHP
+function! HTMLSET()
+  set tw=0
+  set nowrap
+endfunction
+
+" Python
+function! PYSET()
+  map <F4> :!python %
+  set tw=0
+  set nowrap
+endfunction
+
+" Perl
+function! PERLSET()
+  map <F4> :!perl %
+  set cindent
+  set tw=0
+  set nowrap
+endfunction
+
+" Autocommands for all languages:
+autocmd FileType vim    call VIMSET()
+autocmd FileType c      call CSET()
+autocmd FileType C      call CPPSET()
+autocmd FileType cc     call CPPSET()
+autocmd FileType cpp    call CPPSET()
+autocmd FileType java   call JAVASET()
+autocmd FileType tex    call TEXSET()
+autocmd FileType pascal call PPSET()
+autocmd FileType make   call MAKEFILESET()
+autocmd FileType html   call HTMLSET()
+autocmd FileType php    call HTMLSET()
+autocmd FileType perl   call PERLSET()
+autocmd FileType python call PYSET()
+
+
 
 
 set nu
@@ -157,6 +284,8 @@ set foldenable
 set fdm=syntax 
 " Автоматическое открытие сверток при заходе в них
 set foldopen=all 
+set autowrite
+
 
 " Автоматическое закрытие скобок
 imap [ []<LEFT>
