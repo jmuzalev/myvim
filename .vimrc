@@ -26,6 +26,7 @@ call plug#begin('~/.vim/plugged')
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Shougo/deoplete.nvim'
+Plug 'scrooloose/nerdcommenter'
 
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
@@ -70,6 +71,8 @@ let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat
 set splitright
     nnoremap <leader>fa :call cscope#findInteractive(expand('<cword>'))<CR>
     nnoremap <leader>l :call ToggleLocationList()<CR>
+	map <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
 
 "Some optional key mappings to search directly.
    " s: Find this C symbol
