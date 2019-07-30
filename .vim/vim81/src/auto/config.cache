@@ -168,8 +168,12 @@ ac_cv_lib_xpg4__xpg4_setrunelocale=${ac_cv_lib_xpg4__xpg4_setrunelocale=no}
 ac_cv_objext=${ac_cv_objext=o}
 ac_cv_path_EGREP=${ac_cv_path_EGREP='/bin/grep -E'}
 ac_cv_path_FGREP=${ac_cv_path_FGREP='/bin/grep -F'}
+ac_cv_path_GLIB_COMPILE_RESOURCES=${ac_cv_path_GLIB_COMPILE_RESOURCES=/usr/bin/glib-compile-resources}
 ac_cv_path_GREP=${ac_cv_path_GREP=/bin/grep}
+ac_cv_path_GTK_UPDATE_ICON_CACHE=${ac_cv_path_GTK_UPDATE_ICON_CACHE=/usr/bin/gtk-update-icon-cache}
+ac_cv_path_UPDATE_DESKTOP_DATABASE=${ac_cv_path_UPDATE_DESKTOP_DATABASE=/usr/bin/update-desktop-database}
 ac_cv_path_ac_pt_PKG_CONFIG=${ac_cv_path_ac_pt_PKG_CONFIG=/usr/bin/pkg-config}
+ac_cv_path_vi_cv_path_python3=${ac_cv_path_vi_cv_path_python3=/usr/bin/python3}
 ac_cv_path_vi_cv_path_python=${ac_cv_path_vi_cv_path_python=/usr/bin/python2}
 ac_cv_prog_AWK=${ac_cv_prog_AWK=gawk}
 ac_cv_prog_CPP=${ac_cv_prog_CPP='gcc -E'}
@@ -204,15 +208,24 @@ ac_cv_type_stack_t=${ac_cv_type_stack_t=yes}
 ac_cv_type_uid_t=${ac_cv_type_uid_t=yes}
 ac_cv_type_unsigned_long_long_int=${ac_cv_type_unsigned_long_long_int=yes}
 cf_cv_ebcdic=${cf_cv_ebcdic=no}
+vi_cv_dll_name_python3=${vi_cv_dll_name_python3=libpython3.7m.so.1.0}
 vi_cv_dll_name_python=${vi_cv_dll_name_python=libpython2.7.so.1.0}
 vi_cv_have_gpm=${vi_cv_have_gpm=no}
 vi_cv_have_sysmouse=${vi_cv_have_sysmouse=no}
+vi_cv_path_python3=${vi_cv_path_python3=/usr/bin/python3}
+vi_cv_path_python3_conf=${vi_cv_path_python3_conf=/usr/lib/python3.7/config-3.7m-x86_64-linux-gnu/}
+vi_cv_path_python3_epfx=${vi_cv_path_python3_epfx=/usr}
+vi_cv_path_python3_pfx=${vi_cv_path_python3_pfx=/usr}
+vi_cv_path_python3_plibs=${vi_cv_path_python3_plibs='-L/usr/lib/python3.7/config-3.7m-x86_64-linux-gnu/ -lpython3.7m -lcrypt -lpthread -ldl -lutil -lm'}
+vi_cv_path_python3path=${vi_cv_path_python3path=:/usr/lib/python37.zip:/usr/lib/python3.7:/usr/lib/python3.7/lib-dynload:/usr/local/lib/python3.7/dist-packages:/usr/lib/python3/dist-packages:/usr/lib/python3.7/dist-packages}
 vi_cv_path_python=${vi_cv_path_python=/usr/bin/python2}
-vi_cv_path_python_conf=${vi_cv_path_python_conf=/usr/lib/python2.7/config-x86_64-linux-gnu}
+vi_cv_path_python_conf=${vi_cv_path_python_conf=/usr/lib/python2.7/config-x86_64-linux-gnu/}
 vi_cv_path_python_epfx=${vi_cv_path_python_epfx=/usr}
 vi_cv_path_python_pfx=${vi_cv_path_python_pfx=/usr}
 vi_cv_path_python_plibs=${vi_cv_path_python_plibs='-L/usr/lib/python2.7/config-x86_64-linux-gnu -lpython2.7 -lpthread -ldl -lutil -lm -Xlinker -export-dynamic -Wl,-O1 -Wl,-Bsymbolic-functions'}
 vi_cv_path_pythonpath=${vi_cv_path_pythonpath=:/usr/lib/python2.7:/usr/lib/python2.7/plat-x86_64-linux-gnu:/usr/lib/python2.7/lib-tk:/usr/lib/python2.7/lib-old:/usr/lib/python2.7/lib-dynload:/usr/local/lib/python2.7/dist-packages:/usr/lib/python2.7/dist-packages:/usr/lib/python2.7/dist-packages/gtk-2.0:/usr/lib/python2.7/dist-packages/wx-3.0-gtk3}
+vi_cv_var_python3_abiflags=${vi_cv_var_python3_abiflags=m}
+vi_cv_var_python3_version=${vi_cv_var_python3_version=3.7}
 vi_cv_var_python_version=${vi_cv_var_python_version=2.7}
 vim_cv_getcwd_broken=${vim_cv_getcwd_broken=no}
 vim_cv_memmove_handles_overlap=${vim_cv_memmove_handles_overlap=yes}

@@ -24,7 +24,7 @@ CPPFLAGS	=
 srcdir		= .
 
 LDFLAGS		=  -L/usr/local/lib -Wl,--as-needed
-LIBS		= -lm -ltinfo -lnsl  -lselinux  -ldl
+LIBS		= -lm -ltinfo -lnsl  -lselinux   -ldl
 TAGPRG		= ctags -I INIT+ --fields=+S
 
 CPP		= gcc -E
@@ -63,12 +63,12 @@ PERL_CFLAGS	=
 
 PYTHON_SRC	= if_python.c
 PYTHON_OBJ	= objects/if_python.o
-PYTHON_CFLAGS	= -I/usr/include/python2.7 -pthread -fPIE
-PYTHON_LIBS	= -L/usr/lib/python2.7/config-x86_64-linux-gnu -lpython2.7 -lpthread -ldl -lutil -lm -Xlinker -export-dynamic -Wl,-O1 -Wl,-Bsymbolic-functions
+PYTHON_CFLAGS	= -I/usr/include/python2.7 -pthread -DDYNAMIC_PYTHON_DLL=\"libpython2.7.so.1.0\"
+PYTHON_LIBS	= 
 
-PYTHON3_SRC	= 
-PYTHON3_OBJ	= 
-PYTHON3_CFLAGS	= 
+PYTHON3_SRC	= if_python3.c
+PYTHON3_OBJ	= objects/if_python3.o
+PYTHON3_CFLAGS	= -I/usr/include/python3.7m -pthread -DDYNAMIC_PYTHON3_DLL=\"libpython3.7m.so.1.0\"
 PYTHON3_LIBS	= 
 
 TCL		= 
@@ -119,7 +119,7 @@ QUOTESED        = sed -e 's/[\\"]/\\&/g' -e 's/\\"/"/' -e 's/\\";$$/";/'
 NL		= "\\012"
 
 ### Top directory for everything
-prefix		= /opt/local
+prefix		= /usr/local
 
 ### Top directory for the binary
 exec_prefix	= ${prefix}

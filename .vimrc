@@ -1,5 +1,5 @@
-let  g:C_UseTool_cmake    = 'yes'
-let  g:C_UseTool_doxygen = 'yes' 
+"let  g:C_UseTool_cmake    = 'yes'
+"let  g:C_UseTool_doxygen = 'yes' 
 set pyx=3
 set pyxversion=3
 set backspace=indent,eol,start
@@ -21,102 +21,76 @@ call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
 
 " Multiple Plug commands can be written in a single line using | separators
-"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+let g:UltiSnipsExpandTrigger = "<c-j>"
+" по умолчанию, окно с тэгами отображается справа, что не привычно.
+let g:tagbar_left = 1
+Plug 'Yggdroot/indentLine'
+"Plug 'thaerkh/vim-indentguides'
+Plug 'vim-airline/vim-airline'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
 
+
+"let g:ycm_collect_identifiers_from_tags_files = 1
+autocmd Filetype c let g:ycm_global_ycm_extra_conf ='~/.vim/.ycm_extra_conf.py'
+autocmd Filetype cpp let g:ycm_global_ycm_extra_conf ='~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_python_binary_path = '/usr/bin/python3'
+let g:ycm_add_preview_to_completeopt = 1
+let g:ycm_autoclose_preview_window_after_completion = 0
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+"let g:ycm_add_preview_to_completeopt=1
+"let g:ycm_autoclose_preview_window_after_completion=1
+"let g:ycm_goto_buffer_command = 'vertical-split'
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'Shougo/deoplete.nvim'
 Plug 'scrooloose/nerdcommenter'
-
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'zchee/deoplete-clang'
 Plug 'gnattishness/cscope_maps'
-    let g:deoplete#sources#clang#std#c = 'gcc'
-	let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-7/lib/libclang.so.1'
-	let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-7/lib/clang/7.0.1/include/'
+"Plug 'Shougo/neoinclude.vim'
+Plug 'terryma/vim-multiple-cursors'
+
 Plug 'xaizek/vim-inccomplete'
 
-      Plug 'sirver/ultisnips'
-"    let g:UltiSnipsJumpForwardTrigger="<c-j>"
-"    let g:UltiSnipsExpandTrigger="<c-j>"
-"    let g:UltiSnipsEditSplit="vertical"
-"	let g:UltiSnipsListSnippets="<c-e>"
-     Plug 'honza/vim-snippets'
 Plug 'mh21/errormarker.vim'
-"
-"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-
-" YCM
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
-
 " Initialize plugin system
 call plug#end()
 
-let g:cscope_preload_path="/usr/include/cscope.out;/usr/local/include/cscope.out;/root/workspace/Cproj/cscope.out"
+let g:cscope_preload_path="/usr/include/cscope.out;/usr/local/include/cscope.out;/root/workspace/Cproj/cscope.out;getcwd()/cscope.out"
 "set cscopeverbose 
 set cscopequickfix=s-,c-,d-,i-,t-,e-
 
 let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat
 
 
-"function! Addlibcscope()
-"	cs add /usr/include/cscope.out<CR>
-"	cs add /usr/local/include/cscope.out<CR>
-"endfunction
-"nmap <F5>  :cs add /usr/include/cscope.out <CR> :cs add /usr/local/include/cscope.out <CR>
-
-
 "Below is the minimum key mappings.
 set splitright
     nnoremap <leader>fa :call cscope#findInteractive(expand('<cword>'))<CR>
     nnoremap <leader>l :call ToggleLocationList()<CR>
-	map <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+    map <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 
-"Some optional key mappings to search directly.
-   " s: Find this C symbol
-    " g: Find this definition
-    " d: Find functions called by this function
-    " c: Find functions calling this function
-    " t: Find this text string
-    " e: Find this egrep pattern
-    " f: Find this file
-    " i: Find files #including this file
 
-let g:deoplete#sources#jedi#python_path = 'python3'
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete#enable_smart_case = 1
-let g:loaded_python3_provider = 1
-
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-"let g:UltiSnipsExpandTrigger = "<tab>"
-"let g:UltiSnipsJumpForwardTrigger = "<tab>"
-"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-"let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsExpandTrigger="<c-e>"
+"let g:UltiSnipsJumpForwardTrigger="<c-e>"
 "let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
 
 ""
 set wildmode=longest:list,full
 set wildmenu
 
 ""
-"let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
-"let g:ycm_min_num_of_chars_for_completion=1
-"let g:ycm_autoclose_preview_window_after_completion = 1 
-"nnoremap <F3>           :YcmForceCompileAndDiagnostics<CR>
-"nnoremap <leader>gic    :YcmCompleter GoToInclude<CR>
-"nnoremap <leader>gdc    :YcmCompleter GoToDeclaration<CR>
-"nnoremap <leader>gdf    :YcmCompleter GoToDefinition<CR>
-"nnoremap <leader>gip    :YcmCompleter GoToImprecise<CR>
-"nnoremap <leader>f      :YcmCompleter FixIt<CR>
-"nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+let g:ycm_min_num_of_chars_for_completion=2
+nnoremap <F2>           :YcmForceCompileAndDiagnostics<CR>
+nnoremap <leader>gic    :YcmCompleter GoToInclude<CR>
+nnoremap <leader>gdc    :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gdf    :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gip    :YcmCompleter GoToImprecise<CR>
+nnoremap <leader>f      :YcmCompleter FixIt<CR>
+nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-" If you want :UltiSnipsEdit to split your window.
-"let g:UltiSnipsEditSplit="vertical"
-"let g:UltiSnipsExpandTrigger = '<C-y>'
 
 
 filetype plugin indent on
@@ -125,7 +99,36 @@ syntax enable
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set noexpandtab
+set smarttab
+set smartindent
+set ai
+set cin
+
+
+set list lcs=tab:\┊\ 
+"set list listchars=tab:\┊\ ,trail:·,extends:»,precedes:«,nbsp:×
+let g:indent_guides_enable_on_vim_startup=1
+let g:indentLine_color_term = 250
+"let g:indentLine_enabled = 2
+let g:indentLine_char = '┆'
+"let g:indentLine_color_term = 239
+"let g:indentLine_bgcolor_term = 202
+"let g:indentLine_bgcolor_gui = '#FF5F00'
+"set expandtab
+"set cursorcolumn
+"let g:indentguides_ignorelist = ['text']
+"let g:indentguides_spacechar = '┆'
+"let g:indentguides_tabchar = '┊'
+"set modifiable
+"" convert spaces to tabs when reading file
+"autocmd! bufreadpost * set noexpandtab | retab! 4
+
+"" convert tabs to spaces before writing file
+"autocmd! bufwritepre * set expandtab | retab! 4
+
+"" convert spaces to tabs after writing file (to show guides again)
+"autocmd! bufwritepost * set noexpandtab | retab! 4
+"┊
 
 ""
 "autocompletion with ctrl+space
@@ -149,8 +152,9 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 set colorcolumn=110
 highlight ColorColumn ctermbg=darkgray
 
-let &path.="src/include,/usr/include/AL,"
-
+let &path.="src/include,/usr/include/AL,./,"
+set path+=/usr/include/*/*
+set path+=/usr/include/glib-2.0/*
 
 set statusline=%<%f%h%m%r%=char=%b=0x%B\ \ %l,%c%V\ %P
 set laststatus=2
@@ -170,7 +174,12 @@ highlight MyStatusLineHighlight ctermbg=black ctermfg=blue
 "    silent make
 "endfunc
 "
-map <f9> :!~/.vim/scripts/ctags_with_dep.sh %:p:h/*.[ch] <cr><cr> :set tags=./tags,tags<cr>  :!~/.vim/scripts/cscope_find.sh <CR> :cs add cscope.out <CR> 
+
+"set nocp
+"filetype plugin on
+set tags=tags,.tags,../tags
+"set updatetime=1000
+map <f9> :!~/.vim/scripts/ctags_with_dep.sh %:p:h/*.[ch][pp]? <cr><cr> :set tags=./tags <CR><CR> :!~/.vim/scripts/cscope_find.sh <CR> :cs add cscope.out <CR> 
 map <F3> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
 " LaTeX
@@ -181,8 +190,11 @@ endfunction
 
 " C
 function! CSET()
-  map <F4> :w <CR> :make % <CR><CR>
-  set makeprg=if\ \[\ -f\ \"Makefile\"\ \];then\ make\ $*;else\ if\ \[\ -f\ \"makefile\"\ \];then\ make\ $*;else\ gcc\ -O2\ -g\ -Wall\ -W\ -lm\ -o\ %<\ %;fi;fi
+    autocmd QuickFixCmdPost [^l]* nested cwindow
+    autocmd QuickFixCmdPost    l* nested lwindow
+    map <F4> :w <CR> :make % <CR><CR> 
+":copen <CR>
+  set makeprg=if\ \[\ -f\ \"Makefile\"\ \];then\ make\ clean\ &&\ make\ $*;else\ if\ \[\ -f\ \"makefile\"\ \];then\ make\ $*;else\ gcc\ -O2\ -g\ -Wall\ -Wextra\ -Wno-override-init\ -lm\ -o\ %<\ %;fi;fi
 "  set errorformat=%f:%l:\ %m
 
   set cindent
@@ -230,8 +242,7 @@ function! MAKEFILESET()
   " in a Makefile we need to use <Tab> to actually produce tabs
   set noet
   set sts=8
-  iunmap <Tab>
-endfunction
+  endfunction
 
 " HTML/PHP
 function! HTMLSET()
@@ -269,7 +280,17 @@ autocmd FileType php    call HTMLSET()
 autocmd FileType perl   call PERLSET()
 autocmd FileType python call PYSET()
 
-
+set complete=.,w,b,t,i,u,k       " completion buffers
+    "            | | | | | | |
+    "            | | | | | | `-dict
+    "            | | | | | `-unloaded buffers
+    "            | | | | `-include files
+    "            | | | `-tags
+    "            | | `-other loaded buffers
+    "            | `-windows buffers
+    "            `-the current buffer
+set completeopt=menuone " menu,menuone,longest,preview
+set completeopt-=preview " dont show preview window
 
 
 set nu
@@ -289,11 +310,25 @@ set fdm=syntax
 set foldopen=all 
 set autowrite
 
-
 " Автоматическое закрытие скобок
-imap [ []<LEFT>
-imap ( ()<LEFT>
-imap { {}<LEFT>
+ino " ""<left>
+ino ' ''<left>
+ino ( ()<left>
+ino [ []<left>
+ino { {}<left>
+ino {<CR> {<CR>}<ESC>O
+ino {;<CR> {<CR>};<ESC>O
+imap <c-s-down> <esc>ddpi 
+imap <c-s-up> <esc>ddkPi   
+imap <c-s-c> <esc>yypi      
+
+set background=dark
+highlight Comment ctermfg=DarkGray
+highlight SpellBad  term=reverse ctermbg=179 guifg=White guibg=Blue
+
 
 set exrc
 set secure
+"let g:ycm_add_preview_to_completeopt = 1
+let g:ycm_use_ultisnips_completer = 1
+"let g:ycm_cache_omnifunc = 1

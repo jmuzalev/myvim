@@ -275,7 +275,7 @@
 /* #undef HAVE_UTIL_DEBUG_H */
 /* #undef HAVE_UTIL_MSGI18N_H */
 #define HAVE_UTIME_H 1
-#define HAVE_X11_SUNKEYSYM_H 1
+/* #undef HAVE_X11_SUNKEYSYM_H */
 /* #undef HAVE_XM_XM_H */
 /* #undef HAVE_XM_XPMP_H */
 /* #undef HAVE_XM_TRAITP_H */
@@ -341,13 +341,13 @@
 #define FEAT_PYTHON 1
 
 /* Define if you want to include the Python3 interpreter. */
-/* #undef FEAT_PYTHON3 */
+#define FEAT_PYTHON3 1
 
 /* Define for linking via dlopen() or LoadLibrary() */
-/* #undef DYNAMIC_PYTHON */
+#define DYNAMIC_PYTHON 1
 
 /* Define for linking via dlopen() or LoadLibrary() */
-/* #undef DYNAMIC_PYTHON3 */
+#define DYNAMIC_PYTHON3 1
 
 /* Define if dynamic python does not require RTLD_GLOBAL */
 /* #undef PY_NO_RTLD_GLOBAL */
